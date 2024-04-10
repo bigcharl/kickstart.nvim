@@ -247,6 +247,33 @@ sudo apt install make gcc ripgrep unzip neovim
 ```
 </details>
 
+<details><summary>nvim-treesitter[...]: Error during compilation</summary>
+  
+If this error pops up during installation
+```
+nvim-treesitter[...]: Error during compilation
+fatal error: Unknown option: /o.^M
+```
+You need to manually point to a compiler in the **init.lua** file located in: <br>
+**~\AppData\Local\nvim** <br>
+Delete all files in the **~\AppData\Local\nvim-data** folder that contains treesitter in the name
+
+Right before the lazy setup as: 
+```
+...
+require('lazy').setup({...
+```
+Change to:
+```
+...
+require 'nvim-treesitter.install'.compilers = { "gcc" } --could add other compilers using { "gcc", "clang", "..." } as fallback
+
+-- NOTE: Here is where you install your plugins.
+require('lazy').setup({...
+```
+The **choco install** we did earlier installed mingw which contains gcc and g++ so it should work.
+</details>
+
 #### Linux Install
 <details><summary>Ubuntu Install Steps</summary>
 
